@@ -418,8 +418,122 @@ input[type="radio"] {
     background-color: #2980b9;
 }
 
-/* Play again button styling */
-#game-container button {
-    background-color: var(--primary-color);
-    margin-top: 1.5rem;
+
+.output-display {
+    margin: 8px 0;
+    padding: 8px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.correct .output-display {
+    border-left: 3px solid #4CAF50;
+    padding-left: 8px;
+}
+
+.incorrect .output-display {
+    border-left: 3px solid #F44336;
+    padding-left: 8px;
+}
+
+/* Add to styles.css */
+/* Improved Ribbon animation */
+@keyframes ribbonFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg) scale(1);
+        opacity: 0;
+    }
+}
+
+.ribbon {
+    position: fixed;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(45deg, 
+        #ff3366, #ff6633, #ffcc33, #33cc33, 
+        #3399ff, #cc33ff, #ff33cc);
+    opacity: 0;
+    z-index: 999;
+    animation: ribbonFall linear forwards;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+/* Remove the dancing character CSS */
+/* Previous CSS remains the same until the dancing character section */
+
+/* Enhanced congratulations screen */
+.congratulations-screen {
+    text-align: center;
+    padding: 4rem; /* Increased padding */
+    background: rgba(0,0,0,0.9); /* Darker background */
+    border-radius: 20px; /* Slightly rounded corners */
+    position: relative;
+    z-index: 100;
+    backdrop-filter: blur(12px); /* More blur effect */
+    border: 4px solid var(--secondary-color); /* Thicker border */
+    box-shadow: 0 0 60px rgba(46, 204, 113, 0.9); /* Stronger glow */
+    width: 90%; /* Relative width */
+    max-width: 700px; /* Maximum width */
+    margin: 0 auto; /* Centered */
+    min-height: 400px; /* Minimum height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centered content */
+    transform: scale(1.1); /* Slightly larger */
+    transition: transform 0.3s ease; /* Smooth animation */
+}
+
+/* Make headings more prominent */
+.congratulations-screen h2 {
+    font-size: 3.2rem; /* Larger font */
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.congratulations-screen h3 {
+    font-size: 1.8rem; /* Larger font */
+    margin: 1.5rem 0;
+}
+
+/* Rest of the CSS remains the same */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.confetti {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background-color: #f00;
+    opacity: 0;
+    z-index: 999;
+    animation: confettiFall 5s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
