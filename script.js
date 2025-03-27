@@ -1,5 +1,4 @@
 let playerName = "";
-let revealCount = 3;
 let currentRound = 0;
 let timer;
 let codeHidden = false;
@@ -10,6 +9,7 @@ let selectedLanguage = "python"; // Default language
 let tabSwitchCount = 0;
 let isInFullscreen = false;
 let fullscreenWarningShown = false;
+
 
 function enterFullscreen() {
     const elem = document.documentElement;
@@ -58,7 +58,7 @@ function showExitWarning() {
         // Then show the warning if still not in fullscreen
         setTimeout(() => {
             if (!isInFullscreen) {
-                alert(`⚠️ Warning! You've switched tabs ${tabSwitchCount} time(s).\nThe game requires fullscreen mode.`);
+                alert(`⚠ Warning! You've switched tabs ${tabSwitchCount} time(s).\nThe game requires fullscreen mode.`);
                 enterFullscreen();
             }
         }, 300);
@@ -88,7 +88,7 @@ function handleFullscreenChange() {
     if (!isInFullscreen && document.getElementById("game-container").style.display === "block") {
         // Show brief notification instead of confirm()
         const warning = document.createElement('div');
-        warning.textContent = "⚠️ Auto-returning to fullscreen mode...";
+        warning.textContent = "⚠ Auto-returning to fullscreen mode...";
         warning.style = "position:fixed; top:20px; left:50%; transform:translateX(-50%); background:red; color:white; padding:10px; z-index:9999; border-radius:5px;";
         document.body.appendChild(warning);
         
@@ -227,17 +227,99 @@ const allCodeSnippets = {
 
 let codeSnippets = [];
 
-function startGame() {
-    // Remove the duplicate event listener
-    document.getElementById("start-btn").removeEventListener("click", startGame);
+// Enhanced copy-paste prevention
+function disableCopyPaste() {
+    // Prevent cut, copy, paste
+    document.addEventListener('cut', (e) => {
+        e.preventDefault();
+        showTemporaryWarning("Cutting is disabled in this game!");
+        return false;
+    });
+
+    document.addEventListener('copy', (e) => {
+        e.preventDefault();
+        showTemporaryWarning("Copying is disabled in this game!");
+        return false;
+    });
+
+    document.addEventListener('paste', (e) => {
+        e.preventDefault();
+        showTemporaryWarning("Pasting is disabled in this game!");
+        return false;
+    });
+
+    // Prevent right-click context menu
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        showTemporaryWarning("Right-click is disabled in this game!");
+        return false;
+    });
+
+    // Prevent drag-and-drop
+    document.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+        return false;
+    });
+
+    document.addEventListener('drop', (e) => {
+        e.preventDefault();
+        showTemporaryWarning("Drag-and-drop is disabled in this game!");
+        return false;
+    });
+
+    // Prevent keyboard shortcuts (Ctrl+C, Ctrl+V, etc.)
+    document.addEventListener('keydown', (e) => {
+        // Disable Ctrl/CMD + C, V, X
+        if ((e.ctrlKey || e.metaKey) && 
+            (e.key === 'c' || e.key === 'C' || 
+             e.key === 'v' || e.key === 'V' || 
+             e.key === 'x' || e.key === 'X')) {
+            e.preventDefault();
+            showTemporaryWarning("Shortcut keys are disabled in this game!");
+            return false;
+        }
+        
+        // Disable Print Screen
+        if (e.key === 'PrintScreen') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Prevent text selection
+    document.addEventListener('selectstart', (e) => {
+        e.preventDefault();
+        return false;
+    });
+}
+
+function showTemporaryWarning(message) {
+    const warning = document.createElement('div');
+    warning.className = 'copy-warning';
+    warning.textContent = message;
+    document.body.appendChild(warning);
     
+    setTimeout(() => {
+        warning.classList.add('fade-out');
+        setTimeout(() => warning.remove(), 300);
+    }, 2000);
+}
+
+
+
+// Call this function when the game starts
+function startGame() {
+    disableCopyPaste();
     playerName = document.getElementById("player-name").value.trim();
     if (playerName === "") {
-        alert("Please enter your name!");
+        showAlert("Please enter your name!", "error");
         return;
     }
 
-    // Get the selected language
+    // Update player display
+    document.getElementById("player-display").textContent = playerName;
+    
+    // Get selected language
     const languageRadios = document.getElementsByName("language");
     for (const radio of languageRadios) {
         if (radio.checked) {
@@ -246,24 +328,41 @@ function startGame() {
         }
     }
 
+    // Start game
     enterFullscreen();
-    
-    // Select 3 random code snippets for the chosen language
     codeSnippets = getRandomCodeSnippets(3, selectedLanguage);
     currentRound = 0;
     revealCount = 3;
     score = 0;
-
+    
     document.getElementById("welcome-screen").style.display = "none";
     document.getElementById("game-container").style.display = "block";
-
+    
     gameSecondsElapsed = 0;
     updateGameTimer();
     updateScore();
     gameTimerInterval = setInterval(updateGameTimer, 1000);
-
+    
     loadNextCode();
-}function getRandomCodeSnippets(count, language) {
+}
+
+function showAlert(message, type = "info") {
+    const alert = document.createElement("div");
+    alert.className = `alert alert-${type}`;
+    alert.innerHTML = `
+        <i class="fas fa-${type === "error" ? "exclamation-circle" : type === "success" ? "check-circle" : "info-circle"}"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(alert);
+    
+    setTimeout(() => {
+        alert.classList.add("fade-out");
+        setTimeout(() => alert.remove(), 300);
+    }, 3000);
+}
+
+function getRandomCodeSnippets(count, language) {
     const snippets = allCodeSnippets[language];
     const shuffled = [...snippets].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
@@ -290,6 +389,10 @@ function loadNextCode() {
     document.getElementById("code-box").value = "";
     document.getElementById("result-message").innerText = "";
 
+    // Reset reveal button for new question
+    document.getElementById("reveal-btn").innerText = "Reveal Code (3 left)";
+    document.getElementById("reveal-btn").disabled = true; // Will be enabled when timer runs out
+    
     resetUIForNewRound();
     startTimer();
 }
@@ -311,9 +414,7 @@ function startTimer() {
             // Enable input and buttons when code disappears
             document.getElementById("code-box").disabled = false;
             document.getElementById("submit-btn").disabled = false;
-            if (revealCount > 0) {
-                document.getElementById("reveal-btn").disabled = false;
-            }
+            document.getElementById("reveal-btn").disabled = false; // Enable reveal button
 
             codeHidden = true;
         }
@@ -324,32 +425,40 @@ function checkAnswer() {
     let userInput = document.getElementById("code-box").value.trim();
     let correctAnswer = codeSnippets[currentRound].correct.trim();
 
-    // Remove all whitespace (including newlines and tabs) for comparison
     let normalizedInput = userInput.replace(/\s+/g, ' ');
     let normalizedCorrect = correctAnswer.replace(/\s+/g, ' ');
 
+    const resultMessage = document.getElementById("result-message");
+    
     if (normalizedInput === normalizedCorrect) {
         score += 20;
-        document.getElementById("result-message").innerText = "✅ Correct! Moving to the next level...";
+        resultMessage.innerHTML = `<i class="fas fa-check-circle"></i> Correct! Moving to the next level...`;
+        resultMessage.className = "correct";
         updateScore();
+        
         setTimeout(() => {
             currentRound++;
             loadNextCode();
-        }, 2000);
+        }, 1500);
     } else {
         score -= 2;
-        document.getElementById("result-message").innerText = "❌ Incorrect! Try Again.";
+        resultMessage.innerHTML = `<i class="fas fa-times-circle"></i> Incorrect! Try again.`;
+        resultMessage.className = "incorrect";
         updateScore();
     }
 }
-function revealCode() {
-    if (revealCount > 0) {
-        document.getElementById("code-display").innerText = codeSnippets[currentRound].buggy;
-        revealCount--;
-        document.getElementById("reveal-btn").innerText = `Reveal Code (${revealCount} left)`;
 
-        if (revealCount === 0) {
-            document.getElementById("reveal-btn").disabled = true;
+function revealCode() {
+    let revealBtn = document.getElementById("reveal-btn");
+    let currentReveals = parseInt(revealBtn.innerText.match(/\((\d+) left\)/)[1]);
+    
+    if (currentReveals > 0) {
+        document.getElementById("code-display").innerText = codeSnippets[currentRound].buggy;
+        currentReveals--;
+        revealBtn.innerText = `Reveal Code (${currentReveals} left)`;
+
+        if (currentReveals === 0) {
+            revealBtn.disabled = true;
         }
 
         // Restart the timer when the code is revealed again
@@ -367,7 +476,7 @@ function resetUIForNewRound() {
 document.getElementById("code-box").addEventListener("keydown", function(event) {
     if (!codeHidden) {
         event.preventDefault();
-        document.getElementById("result-message").innerText = "⚠️ You can only type after the code disappears!";
+        document.getElementById("result-message").innerText = "⚠ You can only type after the code disappears!";
         setTimeout(() => {
             document.getElementById("result-message").innerText = "";
         }, 2000); // Clear message after 2 seconds
@@ -376,7 +485,7 @@ document.getElementById("code-box").addEventListener("keydown", function(event) 
 
 document.getElementById("code-box").addEventListener('drop', (e) => {
     e.preventDefault();
-    document.getElementById("result-message").innerText = "⚠️ Dragging text is disabled!";
+    document.getElementById("result-message").innerText = "⚠ Dragging text is disabled!";
     setTimeout(() => {
         document.getElementById("result-message").innerText = "";
     }, 2000);
@@ -385,7 +494,7 @@ document.getElementById("code-box").addEventListener('drop', (e) => {
 document.addEventListener('keydown', function(e) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
         e.preventDefault();
-        document.getElementById("result-message").innerText = "⚠️ Pasting is disabled!";
+        document.getElementById("result-message").innerText = "⚠ Pasting is disabled!";
         setTimeout(() => {
             document.getElementById("result-message").innerText = "";
         }, 2000);
@@ -447,3 +556,31 @@ document.addEventListener('contextmenu', (e) => {
     alert("Right-click menu is disabled in this game!");
 });
 
+// Prevent inspecting element
+document.onkeydown = function(e) {
+    if (e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+        (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+        (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+        showTemporaryWarning("Developer tools are disabled during the game!");
+        return false;
+    }
+};
+
+// Prevent taking screenshots (as much as possible)
+document.addEventListener('keyup', (e) => {
+    if (e.key === 'PrintScreen') {
+        navigator.clipboard.writeText('Screenshots are disabled in this game!')
+            .catch(err => console.error('Failed to clear clipboard:', err));
+    }
+});
+
+// Clear clipboard when game starts
+function clearClipboard() {
+    navigator.clipboard.writeText('Copying is disabled in Code in the Dark')
+        .catch(err => console.error('Failed to clear clipboard:', err));
+}
+
+// Call this when game starts
+clearClipboard();
