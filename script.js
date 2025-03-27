@@ -108,128 +108,128 @@ document.addEventListener('msfullscreenchange', handleFullscreenChange);
 const allCodeSnippets = {
     python: [
         {
-            buggy: "def find_max(arr):\n    max_value = arr[0]\n    for i in range(1, len(arr)):\n        if arr[i] > max_value:\n            max_value += arr[i]\n    return max_value",
+            buggy: "def find_max(arr):\n    max_value = arr[0]\n    for i in range(1, len(arr)):\n        if arr[i] > max_value:\n            max_value += arr[i]\n    return max_value\n\nnumbers = [3, 1, 7, 2, 9, 5]\nprint(find_max(numbers))",
             correct: "max_value = arr[i]"
         },
         {
-            buggy: "def is_armstrong(num):\n    total = 0\n    temp = num\n    n = len(str(num))\n\n    while temp > 0:\n        digit = temp % 10\n        total += digit ** n\n        temp // 10\n    return total == num",
+            buggy: "def is_armstrong(num):\n    total = 0\n    temp = num\n    n = len(str(num))\n    while temp > 0:\n        digit = temp % 10\n        total += digit ** n\n        temp // 10\n    return total == num\n\nnum = 153\nprint(is_armstrong(num))",
             correct: "temp = temp // 10"
         },
         {
-            buggy: "def find_duplicate(arr):\n    for i in range(len(arr)):\n        for j in range(i + 1, len(arr)):\n            if arr[i] = arr[j]:\n                return arr[i]\n    return -1",
+            buggy: "def find_duplicate(arr):\n    for i in range(len(arr)):\n        for j in range(i + 1, len(arr)):\n            if arr[i] = arr[j]:\n                return arr[i]\n    return -1\n\narr = [1, 3, 4, 2, 3]\nprint(find_duplicate(arr))",
             correct: "if arr[i] == arr[j]:"
         },
         {
-            buggy: "def column_sums(matrix):\n    m = len(matrix[0]) if matrix else 0  \n    sum_cols = [0] * m  \n    for row in matrix:\n        for j in range(m):\n            sum_cols[j] += row[j]  \n    print(sum_cols )",
+            buggy: "def column_sums(matrix):\n    m = len(matrix[0]) if matrix else 0\n    sum_cols = [0] * m\n    for row in matrix:\n        for j in range(m):\n            sum_cols[j] += row[j]\n    print(sum_cols )\n\nmatrix = [[3, 1, 4], [2, 7, 5], [8, 6, 9]]\ncolumn_sums(matrix)",
             correct: "print(sum_cols)"
         },
         {
-            buggy: "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] == arr[j + 1], arr[j]\n    return arr",
+            buggy: "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] == arr[j + 1], arr[j]\n    return arr\n\narr = [64, 34, 25, 12, 22, 11, 90]\nprint(bubble_sort(arr))",
             correct: "arr[j], arr[j + 1] = arr[j + 1], arr[j]"
         },
         {
-            buggy: "def factorial(n):\n    fact = 1\n    for i in range(1, n):`\n        fact *= i\n    return fact",
+            buggy: "def factorial(n):\n    fact = 1\n    for i in range(1, n):\n        fact *= i\n    return fact\n\nn = 5\nprint(factorial(n))",
             correct: "for i in range(1, n + 1):"
         },
         {
-            buggy: "def reverse_number(n):\n    rev = 0\n    is_negative = n < 0\n    if is_negative:\n        n = -n\n\n    while n > 0:\n        rev = (rev * 10) + (n % 10)\n        n / /10\n    return -rev if is_negative else rev",
+            buggy: "def reverse_number(n):\n    rev = 0\n    is_negative = n < 0\n    if is_negative:\n        n = -n\n    while n > 0:\n        rev = (rev * 10) + (n % 10)\n        n / /10\n    return -rev if is_negative else rev\n\nn = 123\nprint(reverse_number(n))",
             correct: "n = n // 10"
         },
         {
-            buggy: "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    \n    while left < right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    return -1",
+            buggy: "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left < right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n\narr = [1, 3, 5, 7, 9, 11, 15]\nprint(binary_search(arr, 7))",
             correct: "while left <= right:"
         },
         {
-            buggy: "def fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    return fibonacci(n - 1) + fibonacci(n - 2)",
-            correct: "return 1 if n == 1 else fibonacci(n - 1) + fibonacci(n - 2)"
+            buggy: "def fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    return fibonacci(n - 2) + fibonacci(n - 1)\n\nn = 5\nprint(fibonacci(n))",
+            correct: "return fibonacci(n - 1) + fibonacci(n - 2)"
         },
         {
-            buggy: "def row_sums(matrix):\n    for row in matrix:\n        sum_row = 0\n        for num in row:\n            sum_row += num  \n        print(sum)\n",
+            buggy: "def row_sums(matrix):\n    for row in matrix:\n        sum_row = 0\n        for num in row:\n            sum_row += num\n        print(sum)\n\nmatrix = [[3, 1, 4], [2, 7, 5], [8, 6, 9]]\nrow_sums(matrix)",
             correct: "print(sum_row)"
         }
     ],
     c: [
         {
-            buggy: "#include <stdio.h>\n\nint find_max(int arr[], int size) {\n    int max_value = arr[0];\n    for (int i = 1; i < size; i++) {\n        if (arr[i] > max_value) {\n            max_value += arr[i];\n        }\n    }\n    return max_value;\n}",
-            correct: "max_value = arr[i];"
+            "buggy": "#include <stdio.h>\n\nint find_max(int arr[], int size) {\n    int max_value = arr[0];\n    for (int i = 1; i < size; i++) {\n        if (arr[i] > max_value) {\n            max_value += arr[i];\n        }\n    }\n    return max_value;\n}\n\nint main() {\n    int numbers[] = {3, 1, 7, 2, 9, 5};\n    printf(\"Max value: %d\\n\", find_max(numbers, 6));\n    return 0;\n}",
+            "correct": "max_value = arr[i];"
         },
         {
-            buggy: "#include <stdio.h>\n\nint is_armstrong(int num) {\n    int total = 0, temp = num, n = 0;\n    for (int t = num; t > 0; t /= 10) n++;\n    while (temp > 0) {\n        int digit = temp % 10;\n        total += pow(digit, n);\n        temp / 10;\n    }\n    return total == num;\n}",
-            correct: "temp = temp / 10;"
+            "buggy": "#include <stdio.h>\n#include <math.h>\n\nint is_armstrong(int num) {\n    int total = 0, temp = num, n = 0;\n    for (int t = num; t > 0; t /= 10) n++;\n    while (temp > 0) {\n        int digit = temp % 10;\n        total += pow(digit, n);\n        temp / 10;\n    }\n    return total == num;\n}\n\nint main() {\n    int num = 153;\n    printf(\"Is Armstrong: %d\\n\", is_armstrong(num));\n    return 0;\n}",
+            "correct": "temp = temp / 10;"
         },
         {
-            buggy: "#include <stdio.h>\n\nint find_duplicate(int arr[], int size) {\n    for (int i = 0; i < size; i++) {\n        for (int j = i + 1; j < size; j++) {\n            if (arr[i] = arr[j]) {\n                return arr[i];\n            }\n        }\n    }\n    return -1;\n}",
-            correct: "if (arr[i] == arr[j])"
+            "buggy": "#include <stdio.h>\n\nint find_duplicate(int arr[], int size) {\n    for (int i = 0; i < size; i++) {\n        for (int j = i + 1; j < size; j++) {\n            if (arr[i] = arr[j]) {\n                return arr[i];\n            }\n        }\n    }\n    return -1;\n}\n\nint main() {\n    int arr[] = {1, 3, 4, 2, 3};\n    printf(\"Duplicate: %d\\n\", find_duplicate(arr, 5));\n    return 0;\n}",
+            "correct": "if (arr[i] == arr[j])"
         },
         {
-            buggy: "#include <stdio.h>\n\nvoid column_sums(int matrix[][3], int rows) {\n    int sum_cols[3] = {0};\n    for (int i = 0; i < rows; i++) {\n        for (int j = 0; j < 3; j++) {\n            sum_cols[j] =+ matrix[i][j];\n        }\n    }\n    printf(\"%d %d %d\", sum_cols[0], sum_cols[1], sum_cols[2]);\n}",
-            correct: "sum_cols[j] += matrix[i][j];"
+            "buggy": "#include <stdio.h>\n\nvoid column_sums(int matrix[][3], int rows) {\n    int sum_cols[3] = {0};\n    for (int i = 0; i < rows; i++) {\n        for (int j = 0; j < 3; j++) {\n            sum_cols[j] =+ matrix[i][j];\n        }\n    }\n    printf(\"%d %d %d\", sum_cols[0], sum_cols[1], sum_cols[2]);\n}\n\nint main() {\n    int matrix[3][3] = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n    column_sums(matrix, 3);\n    return 0;\n}",
+            "correct": "sum_cols[j] += matrix[i][j];"
         },
         {
-            buggy: "#include <stdio.h>\n\nvoid bubble_sort(int arr[], int size) {\n    for (int i = 0; i < size; i++) {\n        for (int j = 0; j < size - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                arr[j], arr[j + 1] == arr[j + 1], arr[j];\n            }\n        }\n    }\n}",
-            correct: "arr[j] = arr[j + 1]; arr[j + 1] = arr[j];"
+            "buggy": "#include <stdio.h>\n\nvoid bubble_sort(int arr[], int size) {\n    for (int i = 0; i < size; i++) {\n        for (int j = 0; j < size - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                arr[j], arr[j + 1] == arr[j + 1], arr[j];\n            }\n        }\n    }\n}\n\nint main() {\n    int sort_arr[] = {64, 34, 25, 12, 22, 11, 90};\n    bubble_sort(sort_arr, 7);\n    return 0;\n}",
+            "correct": "arr[j] = arr[j + 1]; arr[j + 1] = arr[j];"
         },
         {
-            buggy: "#include <stdio.h>\n\nint factorial(int n) {\n    int fact = 1;\n    for (int i = 1; i < n; i++) {\n        fact *= i;\n    }\n    return fact;\n}",
-            correct: "for (int i = 1; i <= n; i++)"
+            "buggy": "#include <stdio.h>\n\nint factorial(int n) {\n    int fact = 1;\n    for (int i = 1; i < n; i++) {\n        fact *= i;\n    }\n    return fact;\n}\n\nint main() {\n    printf(\"Factorial: %d\\n\", factorial(5));\n    return 0;\n}",
+            "correct": "for (int i = 1; i <= n; i++)"
         },
         {
-            buggy: "#include <stdio.h>\n\nint reverse_number(int n) {\n    int rev = 0;\n    int is_negative = n < 0;\n    if (is_negative) n = -n;\n    while (n > 0) {\n        rev = (rev * 10) + (n % 10);\n        n / /10;\n    }\n    return is_negative ? -rev : rev;\n}",
-            correct: "n = n / 10;"
+            "buggy": "#include <stdio.h>\n\nint reverse_number(int n) {\n    int rev = 0;\n    int is_negative = n < 0;\n    if (is_negative) n = -n;\n    while (n > 0) {\n        rev = (rev * 10) + (n % 10);\n        n / /10;\n    }\n    return is_negative ? -rev : rev;\n}\n\nint main() {\n    printf(\"Reversed: %d\\n\", reverse_number(123));\n    printf(\"Reversed: %d\\n\", reverse_number(-456));\n    return 0;\n}",
+            "correct": "n = n / 10;"
         },
         {
-            buggy: "#include <stdio.h>\n\nint binary_search(int arr[], int size, int target) {\n    int left = 0, right = size - 1;\n    while (left < right) {\n        int mid = (left + right) / 2;\n        if (arr[mid] == target) return mid;\n        else if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}",
-            correct: "while (left <= right)"
+            "buggy": "#include <stdio.h>\n\nint binary_search(int arr[], int size, int target) {\n    int left = 0, right = size - 1;\n    while (left < right) {\n        int mid = (left + right) / 2;\n        if (arr[mid] == target) return mid;\n        else if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}\n\nint main() {\n    int sorted_arr[] = {1, 3, 5, 7, 9, 11, 15};\n    printf(\"Binary search result: %d\\n\", binary_search(sorted_arr, 7, 7));\n    return 0;\n}",
+            "correct": "while (left <= right)"
         },
         {
-            buggy: "#include <stdio.h>\n\nint fibonacci(int n) {\n    if (n == 0) return 0;\n    if (n == 1) return 1;\n    fibonacci(n - 1) + fibonacci(n - 2);\n}",
-            correct: "return fibonacci(n - 1) + fibonacci(n - 2);"
+            "buggy": "#include <stdio.h>\n\nint fibonacci(int n) {\n    if (n == 0)\n        return 0;\n    if (n == 1)\n        return 1;\n    return fibonacci(n - 2) + fibonacci(n - 1);\n}\n\nint main() {\n    int n = 5;\n    printf(\"%d\\n\", fibonacci(n));\n    return 0;\n}",
+            "correct": "return fibonacci(n - 1) + fibonacci(n - 2);"
         },
         {
-            buggy: "#include <stdio.h>\n\nvoid row_sums(int matrix[][3], int rows) {\n    for (int i = 0; i < rows; i++) {\n        int sum_row = 0;\n        for (int j = 0; j < 3; j++) {\n            sum_row += matrix[i][j];\n        }\n        printf(\"%d\n\", sum);\n    }\n}",
-            correct: "printf(\"%d\n\", sum_row);"
+            "buggy": "#include <stdio.h>\n\nvoid row_sums(int matrix[][3], int rows) {\n    for (int i = 0; i < rows; i++) {\n        int sum_row = 0;\n        for (int j = 0; j < 3; j++) {\n            sum_row += matrix[i][j];\n        }\n        printf(\"%d\\n\", sum);\n    }\n}\n\nint main() {\n    int matrix[3][3] = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n    row_sums(matrix, 3);\n    return 0;\n}",
+            "correct": "printf(\"%d\\n\", sum_row);"
         }
     ],
     java: [
         {
-            buggy: "class FindMax {\n    public static int findMax(int[] arr) {\n        int maxValue = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > maxValue) {\n                maxValue += arr[i];\n            }\n        }\n        return maxValue;\n    }\n}",
-            correct: "maxValue = arr[i];"
+            "buggy": "class FindMax {\n    public static int findMax(int[] arr) {\n        int maxValue = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > maxValue) {\n                maxValue += arr[i];\n            }\n        }\n        return maxValue;\n    }\n\n    public static void main(String[] args) {\n        int[] numbers = {3, 1, 7, 2, 9, 5};\n        System.out.println(\"Max value: \" + findMax(numbers));\n    }\n}",
+            "correct": "maxValue = arr[i];"
         },
         {
-            buggy: "class ArmstrongNumber {\n    public static boolean isArmstrong(int num) {\n        int total = 0, temp = num;\n        int n = String.valueOf(num).length();\n        \n        while (temp > 0) {\n            int digit = temp % 10;\n            total += Math.pow(digit, n);\n            temp / 10;\n        }\n        return total == num;\n    }\n}",
-            correct: "temp = temp / 10;"
+            "buggy": "class ArmstrongNumber {\n    public static boolean isArmstrong(int num) {\n        int total = 0, temp = num;\n        int n = String.valueOf(num).length();\n        \n        while (temp > 0) {\n            int digit = temp % 10;\n            total += Math.pow(digit, n);\n            temp / 10;\n        }\n        return total == num;\n    }\n\n    public static void main(String[] args) {\n        int num = 153;\n        System.out.println(isArmstrong(num) ? \"Yes\" : \"No\");\n    }\n}",
+            "correct": "temp = temp / 10;"
         },
         {
-            buggy: "class FindDuplicate {\n    public static int findDuplicate(int[] arr) {\n        for (int i = 0; i < arr.length; i++) {\n            for (int j = i + 1; j < arr.length; j++) {\n                if (arr[i] = arr[j]) {\n                    return arr[i];\n                }\n            }\n        }\n        return -1;\n    }\n}",
-            correct: "if (arr[i] == arr[j])"
+            "buggy": "class FindDuplicate {\n    public static int findDuplicate(int[] arr) {\n        for (int i = 0; i < arr.length; i++) {\n            for (int j = i + 1; j < arr.length; j++) {\n                if (arr[i] = arr[j]) {\n                    return arr[i];\n                }\n            }\n        }\n        return -1;\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {1, 3, 4, 2, 3};\n        System.out.println(\"Duplicate: \" + findDuplicate(arr));\n    }\n}",
+            "correct": "if (arr[i] == arr[j])"
         },
         {
-            buggy: "class ColumnSums {\n    public static void columnSums(int[][] matrix) {\n        int cols = matrix[0].length;\n        int[] sumCols = new int[cols];\n        \n        for (int[] row : matrix) {\n            for (int j = 0; j < cols; j++) {\n                sumCols[j] =+ row[j];\n            }\n        }\n        System.out.println(Arrays.toString(sumCols));\n    }\n}",
-            correct: "sumCols[j] =+ row[j];"
+            "buggy": "import java.util.Arrays;\n\nclass ColumnSums {\n    public static void columnSums(int[][] matrix) {\n        int cols = matrix[0].length;\n        int[] sumCols = new int[cols];\n        \n        for (int[] row : matrix) {\n            for (int j = 0; j < cols; j++) {\n                sumCols[j] =+ row[j];\n            }\n        }\n        System.out.println(Arrays.toString(sumCols));\n    }\n\n    public static void main(String[] args) {\n        int[][] matrix = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n        columnSums(matrix);\n    }\n}",
+            "correct": "sumCols[j] += row[j];"
         },
         {
-            buggy: "class BubbleSort {\n    public static void bubbleSort(int[] arr) {\n        int n = arr.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n - i - 1; j++) {\n                if (arr[j] > arr[j + 1]) {\n                    arr[j], arr[j + 1] == arr[j + 1], arr[j];\n                }\n            }\n        }\n    }\n}",
-            correct: "arr[j] = arr[j + 1]; arr[j + 1] = temp;"
+            "buggy": "class BubbleSort {\n    public static void bubbleSort(int[] arr) {\n        int n = arr.length;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n - i - 1; j++) {\n                if (arr[j] > arr[j + 1]) {\n                    arr[j], arr[j + 1] == arr[j + 1], arr[j];\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {64, 34, 25, 12, 22, 11, 90};\n        bubbleSort(arr);\n        System.out.println(Arrays.toString(arr));\n    }\n}",
+            "correct": "int temp = arr[j];\narr[j] = arr[j + 1];\narr[j + 1] = temp;"
         },
         {
-            buggy: "class Factorial {\n    public static int factorial(int n) {\n        int fact = 1;\n        for (int i = 1; i < n; i++) {\n            fact *= i;\n        }\n        return fact;\n    }\n}",
-            correct: "for (int i = 1; i <= n; i++)"
+            "buggy": "class Factorial {\n    public static int factorial(int n) {\n        int fact = 1;\n        for (int i = 1; i < n; i++) {\n            fact *= i;\n        }\n        return fact;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(\"Factorial: \" + factorial(5));\n    }\n}",
+            "correct": "for (int i = 1; i <= n; i++)"
         },
         {
-            buggy: "class ReverseNumber {\n    public static int reverseNumber(int n) {\n        int rev = 0;\n        boolean isNegative = n < 0;\n        if (isNegative) n = -n;\n        \n        while (n > 0) {\n            rev = (rev * 10) + (n % 10);\n            n / /10;\n        }\n        return isNegative ? -rev : rev;\n    }\n}",
-            correct: "n = n / 10;"
+            "buggy": "class ReverseNumber {\n    public static int reverseNumber(int n) {\n        int rev = 0;\n        boolean isNegative = n < 0;\n        if (isNegative) n = -n;\n        \n        while (n > 0) {\n            rev = (rev * 10) + (n % 10);\n            n / /10;\n        }\n        return isNegative ? -rev : rev;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(reverseNumber(123));\n        System.out.println(reverseNumber(-456));\n    }\n}",
+            "correct": "n = n / 10;"
         },
         {
-            buggy: "class BinarySearch {\n    public static int binarySearch(int[] arr, int target) {\n        int left = 0, right = arr.length - 1;\n        while (left < right) {\n            int mid = (left + right) / 2;\n            if (arr[mid] == target) return mid;\n            else if (arr[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n}",
-            correct: "while (left <= right)"
+            "buggy": "class BinarySearch {\n    public static int binarySearch(int[] arr, int target) {\n        int left = 0, right = arr.length - 1;\n        while (left < right) {\n            int mid = (left + right) / 2;\n            if (arr[mid] == target) return mid;\n            else if (arr[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {1, 3, 5, 7, 9, 11, 15};\n        System.out.println(\"Binary search result: \" + binarySearch(arr, 7));\n    }\n}",
+            "correct": "while (left <= right)"
         },
         {
-            buggy: "class Fibonacci {\n    public static int fibonacci(int n) {\n        if (n == 0) return 0;\n        if (n == 1) return 1;\n        fibonacci(n - 1) + fibonacci(n - 2);\n    }\n}",
-            correct: "return fibonacci(n - 1) + fibonacci(n - 2);"
+            "buggy": "class Fibonacci {\n    public static int fibonacci(int n) {\n        if (n == 0)\n            return 0;\n        if (n == 1)\n            return 1;\n        return fibonacci(n - 2) + fibonacci(n - 1);\n    }\n\n    public static void main(String[] args) {\n        int n = 5;\n        System.out.println(fibonacci(n));\n    }\n}",
+            "correct": "return fibonacci(n - 1) + fibonacci(n - 2);"
         },
         {
-            buggy: "class RowSums {\n    public static void rowSums(int[][] matrix) {\n        for (int[] row : matrix) {\n            int sumRow = 0;\n            for (int num : row) {\n                sumRow += num;\n            }\n            System.out.println(sum);\n        }\n    }\n}",
-            correct: "System.out.println(sumRow);"
+            "buggy": "class RowSums {\n    public static void rowSums(int[][] matrix) {\n        for (int[] row : matrix) {\n            int sumRow = 0;\n            for (int num : row) {\n                sumRow += num;\n            }\n            System.out.println(sum);\n        }\n    }\n\n    public static void main(String[] args) {\n        int[][] matrix = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n        rowSums(matrix);\n    }\n}",
+            "correct": "System.out.println(sumRow);"
         }
     ]
 
