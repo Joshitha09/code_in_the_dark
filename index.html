@@ -3,61 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Code in the Dark</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
     <div id="welcome-screen">
-        <h1>Code in the Dark</h1>
-        <label>Enter Player Name:</label>
-        <input type="text" id="player-name">
+        <div class="logo">
+            <i class="fas fa-code"></i>
+            <h1>Code in the Dark</h1>
+        </div>
+        
+        <div class="player-input">
+            <label for="player-name">Enter Player Name:</label>
+            <input type="text" id="player-name" placeholder="Your name...">
+        </div>
 
         <div id="instructions">
-            <h3>How to Play:</h3>
-            <ol>
+            <h3>How to Play</h3>
+            <ul>
                 <li>Memorize the buggy code shown for 20 seconds</li>
                 <li>After the code disappears, type the corrected version</li>
                 <li>You can reveal the code 3 times per game if needed</li>
-                <li>You need to type only the errored line</li>
                 <li>Score 20 points for each correct answer</li>
                 <li>Lose 2 points for each wrong attempt</li>
                 <li>Complete all 3 questions to finish the game</li>
                 <li>Overall time will be calculated for evaluation</li>
-            </ol>
+            </ul>
         </div>
-        
         <div class="language-selection">
-            <h3>Select Language:</h3>
-            <label>
-                <input type="radio" name="language" value="python" checked> Python
-            </label>
-            <label>
-                <input type="radio" name="language" value="c"> C
-            </label>
-            <label>
-                <input type="radio" name="language" value="java"> Java
-            </label>
+            <h3><i class="fas fa-language"></i> Select Language</h3>
+            <div class="language-options">
+                <label class="language-option">
+                    <input type="radio" name="language" value="python" checked>
+                    <i class="fab fa-python"></i> Python
+                </label>
+                <label class="language-option">
+                    <input type="radio" name="language" value="c">
+                    <i class="fas fa-c"></i>
+                </label>
+                <label class="language-option">
+                    <input type="radio" name="language" value="java">
+                    <i class="fab fa-java"></i> Java
+                </label>
+            </div>
+        </div>
+
+        <button id="start-btn" onclick="startGame()">
+            <i class="fas fa-play"></i> Start Challenge
+        </button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-user"></i>
+                <span id="player-display">Player</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-clock"></i>
+                <span id="game-timer">0:00</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-star"></i>
+                <span id="game-score">0</span>
+            </div>
+        </div>
+
+        <h2><i class="fas fa-bug"></i> Fix the Code!</h2>
+        
+        <div id="code-display"></div>
+        <p id="timer" class="countdown"><i class="fas fa-hourglass-half"></i> Code disappears in: 20 sec</p>
+        
+        <textarea id="code-box" placeholder="Type your corrected code here..." spellcheck="false"></textarea>
+        
+        <div class="button-group">
+            <button id="submit-btn" onclick="checkAnswer()">
+                <i class="fas fa-check"></i> Submit
+            </button>
+            <button id="reveal-btn" onclick="revealCode()">
+                <i class="fas fa-eye"></i> Reveal Code (<span id="reveal-count">3</span> left)
+            </button>
+            <button id="skip-button">
+                <i class="fas fa-forward"></i> Skip
+            </button>
         </div>
         
-        <button id="start-btn" onclick="startGame()">Start Game</button>
-        
-        
+        <div id="result-message"></div>
     </div>
-    <div id="game-container" style="display: none;">
-        <!-- Remove the hardcoded "Fix the Python Code!" heading -->
-        <p id="game-timer">Time: 0:00</p>
-        <p id="game-score">Score: 0</p>
-        <div id="code-display"></div>
-        <p id="timer"></p>
-        <textarea id="code-box" placeholder="Type the corrected line here..."></textarea>
-        <br>
-        <button id="submit-btn" onclick="checkAnswer()">Submit</button>
-        <button id="reveal-btn" onclick="revealCode()">Reveal Code (<span id="reveal-count">3</span> left)</button>
-        <button id="skip-button">Skip</button>
-        <p id="result-message"></p>
-    </div>
-    <script src="script.js"></script>
 
+    <script src="script.js"></script>
 </body>
 </html>
