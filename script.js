@@ -108,6 +108,10 @@ document.addEventListener('msfullscreenchange', handleFullscreenChange);
 const allCodeSnippets = {
     python: [
         {
+            "buggy": "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j = j - 1\n        arr[j + 2] = key\n\n        print(\" \".join(map(str, arr)))\n\narr = [8, 4, 3, 7, 1]\ninsertion_sort(arr)",
+            "correct": "arr[j + 1] = key"
+        },
+        {
             buggy: "def find_max(arr):\n    max_value = arr[0]\n    for i in range(1, len(arr)):\n        if arr[i] > max_value:\n            max_value += arr[i]\n    return max_value\n\nnumbers = [3, 1, 7, 2, 9, 5]\nprint(find_max(numbers))",
             correct: "max_value = arr[i]"
         },
@@ -128,8 +132,8 @@ const allCodeSnippets = {
             correct: "arr[j], arr[j + 1] = arr[j + 1], arr[j]"
         },
         {
-            buggy: "def factorial(n):\n    fact = 1\n    for i in range(1, n):\n        fact *= i\n    return fact\n\nn = 5\nprint(factorial(n))",
-            correct: "for i in range(1, n + 1):"
+            "buggy": "def decimal_to_binary(n):\n    arr = []\n    \n    while n > 0:\n        arr.append(n % 2)\n        n //= 2\n    \n    if not arr:\n        return \"0\"\n    else:\n        return \"\".join(str(arr[i]) for i in range(len(arr)))\n\nt = 3\ntest_cases = [5, 8, 15]\n\nfor n in test_cases:\n    print(decimal_to_binary(n))",
+            "correct": "return \"\".join(str(arr[i]) for i in range(len(arr)-1, -1, -1))"
         },
         {
             buggy: "def reverse_number(n):\n    rev = 0\n    is_negative = n < 0\n    if is_negative:\n        n = -n\n    while n > 0:\n        rev = (rev * 10) + (n % 10)\n        n / /10\n    return -rev if is_negative else rev\n\nn = 123\nprint(reverse_number(n))",
@@ -140,8 +144,8 @@ const allCodeSnippets = {
             correct: "while left <= right:"
         },
         {
-            buggy: "def fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    return fibonacci(n - 2) + fibonacci(n - 1)\n\nn = 5\nprint(fibonacci(n))",
-            correct: "return fibonacci(n - 1) + fibonacci(n - 2)"
+            "buggy": "def matrix_multiply(X, Y):\n    result = [[0, 0, 0, 0, 0],\n              [0, 0, 0, 0, 0],\n              [0, 0, 0, 0, 0]]\n\n    for i in range(len(X)):\n        for j in range(len(Y[0])):\n            for k in range(len(Y)):\n                result[i][j] += X[i][k] * Y[k][j]\n\n    return result\n\nX = [[12, 7, 3],\n     [4, 5, 6],\n     [7, 8, 9]]\n\nY = [[5, 8, 1, 2],\n     [6, 7, 3, 0],\n     [4, 5, 9, 1]]\n\nresult = matrix_multiply(X, Y)\n\nfor r in result:\n    print(r)",
+            "correct": "result = [[0, 0, 0, 0],\n          [0, 0, 0, 0],\n          [0, 0, 0, 0]]"
         },
         {
             buggy: "def row_sums(matrix):\n    for row in matrix:\n        sum_row = 0\n        for num in row:\n            sum_row += num\n        print(sum)\n\nmatrix = [[3, 1, 4], [2, 7, 5], [8, 6, 9]]\nrow_sums(matrix)",
@@ -149,6 +153,10 @@ const allCodeSnippets = {
         }
     ],
     c: [
+        {
+            "buggy": "#include <stdio.h>\n\nvoid insertionSort(int arr[], int N) {\n    for (int i = 1; i < N; i++) {\n        int key = arr[i];\n        int j = i - 1;\n\n        while (j >= 0 && arr[j] > key) {\n            arr[j + 1] = arr[j];\n\n            j = j - 1;\n        }\n        arr[j + 2] = key;\n        for (int k = 0; k < N; k++) {\n            printf(\"%d \", arr[k]);\n        }\n        printf(\"\\n\");\n    }\n}\n\nint main() {\n    int arr[] = {8, 4, 3, 7, 1};\n    int N = sizeof(arr) / sizeof(arr[0]);\n    insertionSort(arr, N);\n    return 0;\n}",
+            "correct": "arr[j + 1] = key"
+        },
         {
             "buggy": "#include <stdio.h>\n\nint find_max(int arr[], int size) {\n    int max_value = arr[0];\n    for (int i = 1; i < size; i++) {\n        if (arr[i] > max_value) {\n            max_value += arr[i];\n        }\n    }\n    return max_value;\n}\n\nint main() {\n    int numbers[] = {3, 1, 7, 2, 9, 5};\n    printf(\"Max value: %d\\n\", find_max(numbers, 6));\n    return 0;\n}",
             "correct": "max_value = arr[i];"
@@ -170,8 +178,8 @@ const allCodeSnippets = {
             "correct": "arr[j] = arr[j + 1]; arr[j + 1] = arr[j];"
         },
         {
-            "buggy": "#include <stdio.h>\n\nint factorial(int n) {\n    int fact = 1;\n    for (int i = 1; i < n; i++) {\n        fact *= i;\n    }\n    return fact;\n}\n\nint main() {\n    printf(\"Factorial: %d\\n\", factorial(5));\n    return 0;\n}",
-            "correct": "for (int i = 1; i <= n; i++)"
+            "buggy": "#include <stdio.h>\n\nvoid decimal_to_binary(int n) {\n    int arr[32], index = 0;\n    \n    while (n > 0) {\n        arr[index++] = n % 2;\n        n /= 2;\n    }\n    \n    if (index == 0) {\n        printf(\"0\\n\");\n        return;\n    }\n    \n    for (int i = 0; i < index; i++) {\n        printf(\"%d\", arr[i]);\n    }\n    printf(\"\\n\");\n}\n\nint main() {\n    int test_cases[] = {5, 8, 15};\n    int t = sizeof(test_cases) / sizeof(test_cases[0]);\n\n    for (int i = 0; i < t; i++) {\n        decimal_to_binary(test_cases[i]);\n    }\n\n    return 0;\n}",
+            "correct": "for (int i = index - 1; i >= 0; i--)"
         },
         {
             "buggy": "#include <stdio.h>\n\nint reverse_number(int n) {\n    int rev = 0;\n    int is_negative = n < 0;\n    if (is_negative) n = -n;\n    while (n > 0) {\n        rev = (rev * 10) + (n % 10);\n        n / /10;\n    }\n    return is_negative ? -rev : rev;\n}\n\nint main() {\n    printf(\"Reversed: %d\\n\", reverse_number(123));\n    printf(\"Reversed: %d\\n\", reverse_number(-456));\n    return 0;\n}",
@@ -182,8 +190,8 @@ const allCodeSnippets = {
             "correct": "while (left <= right)"
         },
         {
-            "buggy": "#include <stdio.h>\n\nint fibonacci(int n) {\n    if (n == 0)\n        return 0;\n    if (n == 1)\n        return 1;\n    return fibonacci(n - 2) + fibonacci(n - 1);\n}\n\nint main() {\n    int n = 5;\n    printf(\"%d\\n\", fibonacci(n));\n    return 0;\n}",
-            "correct": "return fibonacci(n - 1) + fibonacci(n - 2);"
+            "buggy": "#include <stdio.h>\n\nvoid matrix_multiply(int X[3][3], int Y[3][4], int result[3][5]) {\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 4; j++) {\n            result[i][j] = 0;\n            for (int k = 0; k < 3; k++) {\n                result[i][j] += X[i][k] * Y[k][j];\n            }\n        }\n    }\n}\n\nint main() {\n    int X[3][3] = {{12, 7, 3}, {4, 5, 6}, {7, 8, 9}};\n    int Y[3][4] = {{5, 8, 1, 2}, {6, 7, 3, 0}, {4, 5, 9, 1}};\n    int result[3][5] = {0};\n\n    matrix_multiply(X, Y, result);\n\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 4; j++) {\n            printf(\"%d \", result[i][j]);\n        }\n        printf(\"\\n\");\n    }\n\n    return 0;\n}",
+            "correct": "int result[3][4] = {0};"
         },
         {
             "buggy": "#include <stdio.h>\n\nvoid row_sums(int matrix[][3], int rows) {\n    for (int i = 0; i < rows; i++) {\n        int sum_row = 0;\n        for (int j = 0; j < 3; j++) {\n            sum_row += matrix[i][j];\n        }\n        printf(\"%d\\n\", sum);\n    }\n}\n\nint main() {\n    int matrix[3][3] = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n    row_sums(matrix, 3);\n    return 0;\n}",
@@ -191,6 +199,10 @@ const allCodeSnippets = {
         }
     ],
     java: [
+        {
+            "buggy": "public class InsertionSortError {\n    public static void insertionSort(int[] arr) {\n        int N = arr.length;\n\n        for (int i = 1; i < N; i++) {\n            int key = arr[i];\n            int j = i - 1;\n\n            while (j >= 0 && arr[j] > key) {\n                arr[j + 1] = arr[j];\n                j = j - 1;\n            }\n            arr[j + 2] = key;\n\n            for (int k = 0; k < N; k++) {\n                System.out.print(arr[k] + \" \");\n            }\n            System.out.println();\n        }\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {8, 4, 3, 7, 1};\n        insertionSort(arr);\n    }\n}",
+            "correct": "arr[j + 1] = key"
+        },
         {
             "buggy": "class FindMax {\n    public static int findMax(int[] arr) {\n        int maxValue = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > maxValue) {\n                maxValue += arr[i];\n            }\n        }\n        return maxValue;\n    }\n\n    public static void main(String[] args) {\n        int[] numbers = {3, 1, 7, 2, 9, 5};\n        System.out.println(\"Max value: \" + findMax(numbers));\n    }\n}",
             "correct": "maxValue = arr[i];"
@@ -212,8 +224,8 @@ const allCodeSnippets = {
             "correct": "int temp = arr[j];\narr[j] = arr[j + 1];\narr[j + 1] = temp;"
         },
         {
-            "buggy": "class Factorial {\n    public static int factorial(int n) {\n        int fact = 1;\n        for (int i = 1; i < n; i++) {\n            fact *= i;\n        }\n        return fact;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(\"Factorial: \" + factorial(5));\n    }\n}",
-            "correct": "for (int i = 1; i <= n; i++)"
+            "buggy": "import java.util.*;\n\npublic class Main {\n    static String decimalToBinary(int n) {\n        List<Integer> arr = new ArrayList<>();\n        \n        while (n > 0) {\n            arr.add(n % 2);\n            n /= 2;\n        }\n\n        if (arr.isEmpty()) {\n            return \"0\";\n        }\n\n        StringBuilder binary = new StringBuilder();\n        for (int i = 0; i < arr.size(); i++) {\n            binary.append(arr.get(i));\n        }\n        return binary.toString();\n    }\n\n    public static void main(String[] args) {\n        int[] testCases = {5, 8, 15};\n        \n        for (int n : testCases) {\n            System.out.println(decimalToBinary(n));\n        }\n    }\n}",
+            "correct": "for (int i = arr.size() - 1; i >= 0; i--)"
         },
         {
             "buggy": "class ReverseNumber {\n    public static int reverseNumber(int n) {\n        int rev = 0;\n        boolean isNegative = n < 0;\n        if (isNegative) n = -n;\n        \n        while (n > 0) {\n            rev = (rev * 10) + (n % 10);\n            n / /10;\n        }\n        return isNegative ? -rev : rev;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(reverseNumber(123));\n        System.out.println(reverseNumber(-456));\n    }\n}",
@@ -224,8 +236,8 @@ const allCodeSnippets = {
             "correct": "while (left <= right)"
         },
         {
-            "buggy": "class Fibonacci {\n    public static int fibonacci(int n) {\n        if (n == 0)\n            return 0;\n        if (n == 1)\n            return 1;\n        return fibonacci(n - 2) + fibonacci(n - 1);\n    }\n\n    public static void main(String[] args) {\n        int n = 5;\n        System.out.println(fibonacci(n));\n    }\n}",
-            "correct": "return fibonacci(n - 1) + fibonacci(n - 2);"
+            "buggy": "public class Main {\n    static void matrixMultiply(int[][] X, int[][] Y, int[][] result) {\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 4; j++) {\n                result[i][j] = 0;\n                for (int k = 0; k < 3; k++) {\n                    result[i][j] += X[i][k] * Y[k][j];\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        int[][] X = {{12, 7, 3}, {4, 5, 6}, {7, 8, 9}};\n        int[][] Y = {{5, 8, 1, 2}, {6, 7, 3, 0}, {4, 5, 9, 1}};\n        int[][] result = new int[3][5];\n\n        matrixMultiply(X, Y, result);\n\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 4; j++) {\n                System.out.print(result[i][j] + \" \");\n            }\n            System.out.println();\n        }\n    }\n}",
+            "correct": "int[][] result = new int[3][4];"
         },
         {
             "buggy": "class RowSums {\n    public static void rowSums(int[][] matrix) {\n        for (int[] row : matrix) {\n            int sumRow = 0;\n            for (int num : row) {\n                sumRow += num;\n            }\n            System.out.println(sum);\n        }\n    }\n\n    public static void main(String[] args) {\n        int[][] matrix = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n        rowSums(matrix);\n    }\n}",
@@ -450,6 +462,11 @@ function checkAnswer() {
         str = str.replace(/[ \t]+/g, ' ');
         // Remove spaces around operators and brackets
         str = str.replace(/\s*([=+\-*/%!<>]=?|\(|\)|\[|\]|,|;)\s*/g, '$1');
+        // Remove optional parentheses in while/if conditions for Python
+        if (selectedLanguage === "python") {
+            str = str.replace(/while\s*\((.*)\)\s*:/g, 'while $1:')
+                     .replace(/if\s*\((.*)\)\s*:/g, 'if $1:');
+        }
         // Trim start/end
         return str.trim();
     };
@@ -484,46 +501,59 @@ function checkAnswer() {
         updateScore();
     }
 }
-
 // Mock function to get code output (in a real app, you'd use a proper execution environment)
-function getCodeOutput(language, code) {
-    // This is a simplified mock - in reality you'd need a proper code execution environment
+function getCodeOutput(language, code, isCorrect = false) {
     const mockOutputs = {
         python: {
-            "find_max": "9",
-            "is_armstrong": "True",
-            "find_duplicate": "2",
-            "column_sums": "[6, 15, 24]",
-            "bubble_sort": "[1, 2, 3, 4, 5]",
-            "factorial": "120",
-            "reverse_number": "54321",
-            "binary_search": "4",
-            "fibonacci": "5",
-            "row_sums": "[6, 15, 24]"
+            correct: {
+                "insertion_sort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
+                "find_max": "9",
+                "is_armstrong": "True",
+                "find_duplicate": "2",
+                "column_sums": "[6, 15, 24]",
+                "bubble_sort": "[1, 2, 3, 4, 5]",
+                "decimal_to_binary": "101\n1000\n1111",
+                "reverse_number": "54321",
+                "binary_search": "4",
+                "matrix_multiply": "[[114, 160, 60, 27], [74, 97, 73, 14], [119, 157, 112, 23]]",
+                "row_sums": "[6, 15, 24]",
+                "factorial": "120",
+                "fibonacci": "34"
+            }
         },
         c: {
-            "find_max": "9",
-            "is_armstrong": "1",
-            "find_duplicate": "2",
-            "column_sums": "6 15 24",
-            "bubble_sort": "1 2 3 4 5",
-            "factorial": "120",
-            "reverse_number": "54321",
-            "binary_search": "4",
-            "fibonacci": "5",
-            "row_sums": "6\n15\n24"
+            correct: {
+                "insertionSort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
+                "find_max": "9",
+                "is_armstrong": "1",
+                "find_duplicate": "2",
+                "column_sums": "6 15 24",
+                "bubble_sort": "1 2 3 4 5",
+                "decimal_to_binary": "101\n1000\n1111",
+                "reverse_number": "54321",
+                "binary_search": "4",
+                "matrix_multiply": "114 160 60 27\n74 97 73 14\n119 157 112 23",
+                "row_sums": "6\n15\n24",
+                "factorial": "120",
+                "fibonacci": "34"
+            }
         },
         java: {
-            "findMax": "9",
-            "isArmstrong": "true",
-            "findDuplicate": "2",
-            "columnSums": "[6, 15, 24]",
-            "bubbleSort": "[1, 2, 3, 4, 5]",
-            "factorial": "120",
-            "reverseNumber": "54321",
-            "binarySearch": "4",
-            "fibonacci": "5",
-            "rowSums": "6\n15\n24"
+            correct: {
+                "insertionSort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
+                "findMax": "9",
+                "isArmstrong": "true",
+                "findDuplicate": "2",
+                "columnSums": "[6, 15, 24]",
+                "bubbleSort": "[1, 2, 3, 4, 5]",
+                "decimalToBinary": "101\n1000\n1111",
+                "reverseNumber": "54321",
+                "binarySearch": "4",
+                "matrixMultiply": "[[114, 160, 60, 27], [74, 97, 73, 14], [119, 157, 112, 23]]",
+                "rowSums": "[6, 15, 24]",
+                "factorial": "120",
+                "fibonacci": "34"
+            }
         }
     };
 
@@ -531,7 +561,8 @@ function getCodeOutput(language, code) {
     const funcMatch = code.match(/def\s+(\w+)|int\s+(\w+)|boolean\s+(\w+)|void\s+(\w+)/);
     const funcName = funcMatch ? (funcMatch[1] || funcMatch[2] || funcMatch[3] || funcMatch[4]) : "";
     
-    return mockOutputs[language][funcName] || "Output not available";
+    return isCorrect ? mockOutputs[language].correct[funcName] || "Output not available" 
+                    : "Output not available";
 }
 
 function revealCode() {
