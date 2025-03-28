@@ -155,7 +155,7 @@ const allCodeSnippets = {
     c: [
         {
             "buggy": "#include <stdio.h>\n\nvoid insertionSort(int arr[], int N) {\n    for (int i = 1; i < N; i++) {\n        int key = arr[i];\n        int j = i - 1;\n\n        while (j >= 0 && arr[j] > key) {\n            arr[j + 1] = arr[j];\n\n            j = j - 1;\n        }\n        arr[j + 2] = key;\n        for (int k = 0; k < N; k++) {\n            printf(\"%d \", arr[k]);\n        }\n        printf(\"\\n\");\n    }\n}\n\nint main() {\n    int arr[] = {8, 4, 3, 7, 1};\n    int N = sizeof(arr) / sizeof(arr[0]);\n    insertionSort(arr, N);\n    return 0;\n}",
-            "correct": "arr[j + 1] = key"
+            "correct": "arr[j + 1] = key;"
         },
         {
             "buggy": "#include <stdio.h>\n\nint find_max(int arr[], int size) {\n    int max_value = arr[0];\n    for (int i = 1; i < size; i++) {\n        if (arr[i] > max_value) {\n            max_value += arr[i];\n        }\n    }\n    return max_value;\n}\n\nint main() {\n    int numbers[] = {3, 1, 7, 2, 9, 5};\n    printf(\"Max value: %d\\n\", find_max(numbers, 6));\n    return 0;\n}",
@@ -201,7 +201,7 @@ const allCodeSnippets = {
     java: [
         {
             "buggy": "public class InsertionSortError {\n    public static void insertionSort(int[] arr) {\n        int N = arr.length;\n\n        for (int i = 1; i < N; i++) {\n            int key = arr[i];\n            int j = i - 1;\n\n            while (j >= 0 && arr[j] > key) {\n                arr[j + 1] = arr[j];\n                j = j - 1;\n            }\n            arr[j + 2] = key;\n\n            for (int k = 0; k < N; k++) {\n                System.out.print(arr[k] + \" \");\n            }\n            System.out.println();\n        }\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {8, 4, 3, 7, 1};\n        insertionSort(arr);\n    }\n}",
-            "correct": "arr[j + 1] = key"
+            "correct": "arr[j + 1] = key;"
         },
         {
             "buggy": "class FindMax {\n    public static int findMax(int[] arr) {\n        int maxValue = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > maxValue) {\n                maxValue += arr[i];\n            }\n        }\n        return maxValue;\n    }\n\n    public static void main(String[] args) {\n        int[] numbers = {3, 1, 7, 2, 9, 5};\n        System.out.println(\"Max value: \" + findMax(numbers));\n    }\n}",
@@ -505,7 +505,7 @@ function getCodeOutput(language, code, isCorrect = false) {
     const mockOutputs = {
         python: {
             correct: {
-                "insertion_sort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
+                "insertion_sort": "4 8 3 7 1\n\n3 4 8 7 1\n\n3 4 7 8 1\n\n1 3 4 7 8",
                 "find_max": "9",
                 "is_armstrong": "True",
                 "find_duplicate": "3",
@@ -520,7 +520,7 @@ function getCodeOutput(language, code, isCorrect = false) {
         },
         c: {
             correct: {
-                "insertionSort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
+                "insertionSort": "4 8 3 7 1\n\n3 4 8 7 1\n\n3 4 7 8 1\n\n1 3 4 7 8",
                 "find_max": "9",
                 "is_armstrong": "1",
                 "find_duplicate": "3",
@@ -536,7 +536,7 @@ function getCodeOutput(language, code, isCorrect = false) {
         },
         java: {
             correct: {
-                "insertionSort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
+                "insertionSort": "4 8 3 7 1\n\n3 4 8 7 1\n\n3 4 7 8 1\n\n1 3 4 7 8",
                 "findMax": "9",
                 "isArmstrong": "true",
                 "findDuplicate": "3",
