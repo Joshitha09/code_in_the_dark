@@ -37,22 +37,43 @@ body {
 
 /* Updated CSS for smaller Fix the Code page */
 #game-container {
-    max-width: 600px; /* Reduced from 800px */
-    margin: 1rem auto; /* Reduced margin */
-    padding: 1.5rem; /* Reduced padding */
+    max-width: 1000px; /* Increased from 600px */
+    margin: 1rem auto;
+    padding: 1.5rem;
 }
 
 #code-display {
-    padding: 1rem; /* Reduced padding */
-    font-size: 0.9rem; /* Slightly smaller font */
-    margin: 0.5rem 0; /* Reduced margin */
+    background-color: var(--code-bg);
+    color: var(--code-color);
+    padding: 1.5rem;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 1rem 0;
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 4;
+    border: 1px solid var(--border-color);
+    width: 100%; /* Ensure it takes full width */
+    max-width: 900px; /* Increased from default */
+    min-width: 600px; /* Minimum width to prevent shrinking */
 }
 
 #code-box {
-    min-height: 80px; /* Reduced from 100px */
-    padding: 0.8rem; /* Reduced padding */
-    font-size: 0.9rem; /* Slightly smaller font */
-    margin: 0.5rem 0; /* Reduced margin */
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    resize: vertical;
+    margin: 1rem 0;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    max-width: 900px; /* Increased from default */
+    min-width: 600px; /* Minimum width to prevent shrinking */
 }
 
 .button-group {
@@ -523,38 +544,252 @@ input[type="radio"] {
 /* Remove the dancing character CSS */
 /* Previous CSS remains the same until the dancing character section */
 
-/* Enhanced congratulations screen */
+/* Enhanced Congratulations Screen - Professional Elegance */
 .congratulations-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 90%;
+    max-width: 800px;
+    min-height: 500px;
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(20, 20, 20, 0.98) 100%);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                0 0 30px rgba(46, 204, 113, 0.3);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
-    padding: 4rem; /* Increased padding */
-    background: rgba(0,0,0,0.9); /* Darker background */
-    border-radius: 20px; /* Slightly rounded corners */
-    position: relative;
-    z-index: 100;
-    backdrop-filter: blur(12px); /* More blur effect */
-    border: 4px solid var(--secondary-color); /* Thicker border */
-    box-shadow: 0 0 60px rgba(46, 204, 113, 0.9); /* Stronger glow */
-    width: 90%; /* Relative width */
-    max-width: 700px; /* Maximum width */
-    margin: 0 auto; /* Centered */
-    min-height: 400px; /* Minimum height */
+    z-index: 1000;
+    overflow: hidden;
+    animation: elegantEntrance 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertically centered content */
-    transform: scale(1.1); /* Slightly larger */
-    transition: transform 0.3s ease; /* Smooth animation */
+    justify-content: center;
+    align-items: center;
 }
 
-/* Make headings more prominent */
+@keyframes elegantEntrance {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.congratulations-screen::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(46, 204, 113, 0.1) 0%, transparent 70%);
+    animation: rotateGradient 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .congratulations-screen h2 {
-    font-size: 3.2rem; /* Larger font */
-    margin-bottom: 2rem;
-    line-height: 1.2;
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(46, 204, 113, 0.3);
+    position: relative;
+    display: inline-block;
+}
+
+.congratulations-screen h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
 }
 
 .congratulations-screen h3 {
-    font-size: 1.8rem; /* Larger font */
-    margin: 1.5rem 0;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.congratulations-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.congratulations-actions {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.congratulations-btn {
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+}
+
+.congratulations-btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #2980b9);
+    color: white;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+/* Professional confetti effect */
+.professional-confetti {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    z-index: 999;
+    animation: proConfettiFall 4s linear forwards;
+    background: linear-gradient(45deg, 
+        rgba(52, 152, 219, 0.9), 
+        rgba(155, 89, 182, 0.9), 
+        rgba(46, 204, 113, 0.9));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes proConfettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Achievement badge */
+.achievement-badge {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, var(--secondary-color), #27ae60);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.achievement-badge i {
+    font-size: 3.5rem;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .congratulations-screen {
+        padding: 2rem;
+        min-height: auto;
+    }
+    
+    .congratulations-screen h2 {
+        font-size: 2.2rem;
+    }
+    
+    .congratulations-screen h3 {
+        font-size: 1.2rem;
+    }
+    
+    .congratulations-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .congratulations-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .congratulations-btn {
+        width: 100%;
+    }
 }
 
 /* Rest of the CSS remains the same */
@@ -587,5 +822,81 @@ input[type="radio"] {
     100% {
         transform: translateY(100vh) rotate(720deg);
         opacity: 0;
+    }
+}
+
+/* Balloon Styles */
+.balloon {
+    position: fixed;
+    width: 40px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    z-index: 999;
+    animation: balloonRise 10s linear forwards;
+    opacity: 0;
+    transform: translateY(100vh);
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.balloon::after {
+    content: '🎈';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+@keyframes balloonRise {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.8;
+        transform: translateY(-100vh) translateX(20vw);
+    }
+}
+
+/* Enhanced Ribbon Styles */
+.ribbon {
+    position: fixed;
+    width: 30px;
+    height: 100px;
+    background: linear-gradient(45deg, 
+        #ff3366, #ff6633, #ffcc33, #33cc33, 
+        #3399ff, #cc33ff, #ff33cc);
+    opacity: 0;
+    z-index: 999;
+    animation: ribbonFall 5s linear forwards;
+    transform: rotate(45deg);
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+}
+
+@keyframes ribbonFall {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(45deg) scale(0.5);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(45deg) scale(1);
     }
 }
