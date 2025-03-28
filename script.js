@@ -108,8 +108,8 @@ document.addEventListener('msfullscreenchange', handleFullscreenChange);
 const allCodeSnippets = {
     python: [
         {
-            "buggy": "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j = j - 1\n        arr[j + 2] = key\n\n        print(\" \".join(map(str, arr)))\n\narr = [8, 4, 3, 7, 1]\ninsertion_sort(arr)",
-            "correct": "arr[j + 1] = key"
+            buggy: "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j = j - 1\n        arr[j + 2] = key\n\n        print(\" \".join(map(str, arr)))\n\narr = [8, 4, 3, 7, 1]\ninsertion_sort(arr)",
+            correct: "arr[j + 1] = key"
         },
         {
             buggy: "def find_max(arr):\n    max_value = arr[0]\n    for i in range(1, len(arr)):\n        if arr[i] > max_value:\n            max_value += arr[i]\n    return max_value\n\nnumbers = [3, 1, 7, 2, 9, 5]\nprint(find_max(numbers))",
@@ -132,8 +132,8 @@ const allCodeSnippets = {
             correct: "arr[j], arr[j + 1] = arr[j + 1], arr[j]"
         },
         {
-            "buggy": "def decimal_to_binary(n):\n    arr = []\n    \n    while n > 0:\n        arr.append(n % 2)\n        n //= 2\n    \n    if not arr:\n        return \"0\"\n    else:\n        return \"\".join(str(arr[i]) for i in range(len(arr)))\n\nt = 3\ntest_cases = [5, 8, 15]\n\nfor n in test_cases:\n    print(decimal_to_binary(n))",
-            "correct": "return \"\".join(str(arr[i]) for i in range(len(arr)-1, -1, -1))"
+            buggy: "def decimal_to_binary(n):\n    arr = []\n    \n    while n > 0:\n        arr.append(n % 2)\n        n //= 2\n    \n    if not arr:\n        return \"0\"\n    else:\n        return \"\".join(str(arr[i]) for i in range(len(arr)))\n\nt = 3\ntest_cases = [5, 8, 15]\n\nfor n in test_cases:\n    print(decimal_to_binary(n))",
+            correct: "return \"\".join(str(arr[i]) for i in range(len(arr)-1, -1, -1))"
         },
         {
             buggy: "def reverse_number(n):\n    rev = 0\n    is_negative = n < 0\n    if is_negative:\n        n = -n\n    while n > 0:\n        rev = (rev * 10) + (n % 10)\n        n / /10\n    return -rev if is_negative else rev\n\nn = 123\nprint(reverse_number(n))",
@@ -144,8 +144,8 @@ const allCodeSnippets = {
             correct: "while left <= right:"
         },
         {
-            "buggy": "def matrix_multiply(X, Y):\n    result = [[0, 0, 0, 0, 0],\n              [0, 0, 0, 0, 0],\n              [0, 0, 0, 0, 0]]\n\n    for i in range(len(X)):\n        for j in range(len(Y[0])):\n            for k in range(len(Y)):\n                result[i][j] += X[i][k] * Y[k][j]\n\n    return result\n\nX = [[12, 7, 3],\n     [4, 5, 6],\n     [7, 8, 9]]\n\nY = [[5, 8, 1, 2],\n     [6, 7, 3, 0],\n     [4, 5, 9, 1]]\n\nresult = matrix_multiply(X, Y)\n\nfor r in result:\n    print(r)",
-            "correct": "result = [[0, 0, 0, 0],\n          [0, 0, 0, 0],\n          [0, 0, 0, 0]]"
+            buggy: "def matrix_multiply(X, Y):\n    result = [[0, 0, 0, 0, 0],\n              [0, 0, 0, 0, 0],\n              [0, 0, 0, 0, 0]]\n\n    for i in range(len(X)):\n        for j in range(len(Y[0])):\n            for k in range(len(Y)):\n                result[i][j] += X[i][k] * Y[k][j]\n\n    return result\n\nX = [[12, 7, 3],\n     [4, 5, 6],\n     [7, 8, 9]]\n\nY = [[5, 8, 1, 2],\n     [6, 7, 3, 0],\n     [4, 5, 9, 1]]\n\nresult = matrix_multiply(X, Y)\n\nfor r in result:\n    print(r)",
+            correct: "result = [[0, 0, 0, 0],\n          [0, 0, 0, 0],\n          [0, 0, 0, 0]]"
         },
         {
             buggy: "def row_sums(matrix):\n    for row in matrix:\n        sum_row = 0\n        for num in row:\n            sum_row += num\n        print(sum)\n\nmatrix = [[3, 1, 4], [2, 7, 5], [8, 6, 9]]\nrow_sums(matrix)",
@@ -182,7 +182,7 @@ const allCodeSnippets = {
             "correct": "for (int i = index - 1; i >= 0; i--) {"
         },
         {
-            "buggy": "#include <stdio.h>\n\nint reverse_number(int n) {\n    int rev = 0;\n    int is_negative = n < 0;\n    if (is_negative) n = -n;\n    while (n > 0) {\n        rev = (rev * 10) + (n % 10);\n        n / /10;\n    }\n    return is_negative ? -rev : rev;\n}\n\nint main() {\n    printf(\"Reversed: %d\\n\", reverse_number(123));\n    printf(\"Reversed: %d\\n\", reverse_number(-456));\n    return 0;\n}",
+            "buggy": "#include <stdio.h>\n\nint reverse_number(int n) {\n    int rev = 0;\n    int is_negative = n < 0;\n    if (is_negative) n = -n;\n    while (n > 0) {\n        rev = (rev * 10) + (n % 10);\n        n / /10;\n    }\n    return is_negative ? -rev : rev;\n}\n\nint main() {\n    printf(\"Reversed: %d\\n\", reverse_number(123));\n    return 0;\n}",
             "correct": "n = n / 10;"
         },
         {
@@ -228,7 +228,7 @@ const allCodeSnippets = {
             "correct": "for (int i = arr.size() - 1; i >= 0; i--) {"
         },
         {
-            "buggy": "class ReverseNumber {\n    public static int reverseNumber(int n) {\n        int rev = 0;\n        boolean isNegative = n < 0;\n        if (isNegative) n = -n;\n        \n        while (n > 0) {\n            rev = (rev * 10) + (n % 10);\n            n / /10;\n        }\n        return isNegative ? -rev : rev;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(reverseNumber(123));\n        System.out.println(reverseNumber(-456));\n    }\n}",
+            "buggy": "class ReverseNumber {\n    public static int reverseNumber(int n) {\n        int rev = 0;\n        boolean isNegative = n < 0;\n        if (isNegative) n = -n;\n        \n        while (n > 0) {\n            rev = (rev * 10) + (n % 10);\n            n / /10;\n        }\n        return isNegative ? -rev : rev;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(reverseNumber(123));\n    }\n}",
             "correct": "n = n / 10;"
         },
         {
@@ -510,14 +510,12 @@ function getCodeOutput(language, code, isCorrect = false) {
                 "is_armstrong": "True",
                 "find_duplicate": "3",
                 "column_sums": "[13, 14, 18]",
-                "bubble_sort": "[1, 2, 3, 4, 5]",
+                "bubble_sort": "[11, 12, 22, 25, 34, 64, 90]",
                 "decimal_to_binary": "101\n1000\n1111",
-                "reverse_number": "54321",
+                "reverse_number": "321",
                 "binary_search": "4",
                 "matrix_multiply": "[[114, 160, 60, 27], [74, 97, 73, 14], [119, 157, 112, 23]]",
-                "row_sums": "[6, 15, 24]",
-                "factorial": "120",
-                "fibonacci": "34"
+                "row_sums": "[8, 14, 23]"
             }
         },
         c: {
@@ -527,14 +525,13 @@ function getCodeOutput(language, code, isCorrect = false) {
                 "is_armstrong": "1",
                 "find_duplicate": "3",
                 "column_sums": "13 14 18",
-                "bubble_sort": "1 2 3 4 5",
+                "bubble_sort": "11, 12, 22, 25, 34, 64, 90",
                 "decimal_to_binary": "101\n1000\n1111",
-                "reverse_number": "54321",
+                "reverse_number": "321",
                 "binary_search": "4",
                 "matrix_multiply": "114 160 60 27\n74 97 73 14\n119 157 112 23",
-                "row_sums": "6\n15\n24",
-                "factorial": "120",
-                "fibonacci": "34"
+                "row_sums": "8\n14\n23"
+                
             }
         },
         java: {
@@ -544,14 +541,13 @@ function getCodeOutput(language, code, isCorrect = false) {
                 "isArmstrong": "true",
                 "findDuplicate": "3",
                 "columnSums": "[13, 14, 18]",
-                "bubbleSort": "[1, 2, 3, 4, 5]",
+                "bubbleSort": "[11, 12, 22, 25, 34, 64, 90]",
                 "decimalToBinary": "101\n1000\n1111",
-                "reverseNumber": "54321",
+                "reverseNumber": "321",
                 "binarySearch": "4",
                 "matrixMultiply": "[[114, 160, 60, 27], [74, 97, 73, 14], [119, 157, 112, 23]]",
-                "rowSums": "[6, 15, 24]",
-                "factorial": "120",
-                "fibonacci": "34"
+                "rowSums": "[8, 14, 23]"
+                
             }
         }
     };
