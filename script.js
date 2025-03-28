@@ -167,7 +167,7 @@ const allCodeSnippets = {
         },
         {
             "buggy": "#include <stdio.h>\n\nint find_duplicate(int arr[], int size) {\n    for (int i = 0; i < size; i++) {\n        for (int j = i + 1; j < size; j++) {\n            if (arr[i] = arr[j]) {\n                return arr[i];\n            }\n        }\n    }\n    return -1;\n}\n\nint main() {\n    int arr[] = {1, 3, 4, 2, 3};\n    printf(\"Duplicate: %d\\n\", find_duplicate(arr, 5));\n    return 0;\n}",
-            "correct": "if (arr[i] == arr[j])"
+            "correct": "if (arr[i] == arr[j]) {"
         },
         {
             "buggy": "#include <stdio.h>\n\nvoid column_sums(int matrix[][3], int rows) {\n    int sum_cols[3] = {0};\n    for (int i = 0; i < rows; i++) {\n        for (int j = 0; j < 3; j++) {\n            sum_cols[j] =+ matrix[i][j];\n        }\n    }\n    printf(\"%d %d %d\", sum_cols[0], sum_cols[1], sum_cols[2]);\n}\n\nint main() {\n    int matrix[3][3] = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n    column_sums(matrix, 3);\n    return 0;\n}",
@@ -179,7 +179,7 @@ const allCodeSnippets = {
         },
         {
             "buggy": "#include <stdio.h>\n\nvoid decimal_to_binary(int n) {\n    int arr[32], index = 0;\n    \n    while (n > 0) {\n        arr[index++] = n % 2;\n        n /= 2;\n    }\n    \n    if (index == 0) {\n        printf(\"0\\n\");\n        return;\n    }\n    \n    for (int i = 0; i < index; i++) {\n        printf(\"%d\", arr[i]);\n    }\n    printf(\"\\n\");\n}\n\nint main() {\n    int test_cases[] = {5, 8, 15};\n    int t = sizeof(test_cases) / sizeof(test_cases[0]);\n\n    for (int i = 0; i < t; i++) {\n        decimal_to_binary(test_cases[i]);\n    }\n\n    return 0;\n}",
-            "correct": "for (int i = index - 1; i >= 0; i--)"
+            "correct": "for (int i = index - 1; i >= 0; i--) {"
         },
         {
             "buggy": "#include <stdio.h>\n\nint reverse_number(int n) {\n    int rev = 0;\n    int is_negative = n < 0;\n    if (is_negative) n = -n;\n    while (n > 0) {\n        rev = (rev * 10) + (n % 10);\n        n / /10;\n    }\n    return is_negative ? -rev : rev;\n}\n\nint main() {\n    printf(\"Reversed: %d\\n\", reverse_number(123));\n    printf(\"Reversed: %d\\n\", reverse_number(-456));\n    return 0;\n}",
@@ -187,7 +187,7 @@ const allCodeSnippets = {
         },
         {
             "buggy": "#include <stdio.h>\n\nint binary_search(int arr[], int size, int target) {\n    int left = 0, right = size - 1;\n    while (left < right) {\n        int mid = (left + right) / 2;\n        if (arr[mid] == target) return mid;\n        else if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}\n\nint main() {\n    int sorted_arr[] = {1, 3, 5, 7, 9, 11, 15};\n    printf(\"Binary search result: %d\\n\", binary_search(sorted_arr, 7, 7));\n    return 0;\n}",
-            "correct": "while (left <= right)"
+            "correct": "while (left <= right) {"
         },
         {
             "buggy": "#include <stdio.h>\n\nvoid matrix_multiply(int X[3][3], int Y[3][4], int result[3][5]) {\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 4; j++) {\n            result[i][j] = 0;\n            for (int k = 0; k < 3; k++) {\n                result[i][j] += X[i][k] * Y[k][j];\n            }\n        }\n    }\n}\n\nint main() {\n    int X[3][3] = {{12, 7, 3}, {4, 5, 6}, {7, 8, 9}};\n    int Y[3][4] = {{5, 8, 1, 2}, {6, 7, 3, 0}, {4, 5, 9, 1}};\n    int result[3][5] = {0};\n\n    matrix_multiply(X, Y, result);\n\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 4; j++) {\n            printf(\"%d \", result[i][j]);\n        }\n        printf(\"\\n\");\n    }\n\n    return 0;\n}",
@@ -213,7 +213,7 @@ const allCodeSnippets = {
         },
         {
             "buggy": "class FindDuplicate {\n    public static int findDuplicate(int[] arr) {\n        for (int i = 0; i < arr.length; i++) {\n            for (int j = i + 1; j < arr.length; j++) {\n                if (arr[i] = arr[j]) {\n                    return arr[i];\n                }\n            }\n        }\n        return -1;\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {1, 3, 4, 2, 3};\n        System.out.println(\"Duplicate: \" + findDuplicate(arr));\n    }\n}",
-            "correct": "if (arr[i] == arr[j])"
+            "correct": "if (arr[i] == arr[j]) {"
         },
         {
             "buggy": "import java.util.Arrays;\n\nclass ColumnSums {\n    public static void columnSums(int[][] matrix) {\n        int cols = matrix[0].length;\n        int[] sumCols = new int[cols];\n        \n        for (int[] row : matrix) {\n            for (int j = 0; j < cols; j++) {\n                sumCols[j] =+ row[j];\n            }\n        }\n        System.out.println(Arrays.toString(sumCols));\n    }\n\n    public static void main(String[] args) {\n        int[][] matrix = {{3, 1, 4}, {2, 7, 5}, {8, 6, 9}};\n        columnSums(matrix);\n    }\n}",
@@ -225,7 +225,7 @@ const allCodeSnippets = {
         },
         {
             "buggy": "import java.util.*;\n\npublic class Main {\n    static String decimalToBinary(int n) {\n        List<Integer> arr = new ArrayList<>();\n        \n        while (n > 0) {\n            arr.add(n % 2);\n            n /= 2;\n        }\n\n        if (arr.isEmpty()) {\n            return \"0\";\n        }\n\n        StringBuilder binary = new StringBuilder();\n        for (int i = 0; i < arr.size(); i++) {\n            binary.append(arr.get(i));\n        }\n        return binary.toString();\n    }\n\n    public static void main(String[] args) {\n        int[] testCases = {5, 8, 15};\n        \n        for (int n : testCases) {\n            System.out.println(decimalToBinary(n));\n        }\n    }\n}",
-            "correct": "for (int i = arr.size() - 1; i >= 0; i--)"
+            "correct": "for (int i = arr.size() - 1; i >= 0; i--) {"
         },
         {
             "buggy": "class ReverseNumber {\n    public static int reverseNumber(int n) {\n        int rev = 0;\n        boolean isNegative = n < 0;\n        if (isNegative) n = -n;\n        \n        while (n > 0) {\n            rev = (rev * 10) + (n % 10);\n            n / /10;\n        }\n        return isNegative ? -rev : rev;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(reverseNumber(123));\n        System.out.println(reverseNumber(-456));\n    }\n}",
@@ -233,7 +233,7 @@ const allCodeSnippets = {
         },
         {
             "buggy": "class BinarySearch {\n    public static int binarySearch(int[] arr, int target) {\n        int left = 0, right = arr.length - 1;\n        while (left < right) {\n            int mid = (left + right) / 2;\n            if (arr[mid] == target) return mid;\n            else if (arr[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n\n    public static void main(String[] args) {\n        int[] arr = {1, 3, 5, 7, 9, 11, 15};\n        System.out.println(\"Binary search result: \" + binarySearch(arr, 7));\n    }\n}",
-            "correct": "while (left <= right)"
+            "correct": "while (left <= right) {"
         },
         {
             "buggy": "public class Main {\n    static void matrixMultiply(int[][] X, int[][] Y, int[][] result) {\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 4; j++) {\n                result[i][j] = 0;\n                for (int k = 0; k < 3; k++) {\n                    result[i][j] += X[i][k] * Y[k][j];\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        int[][] X = {{12, 7, 3}, {4, 5, 6}, {7, 8, 9}};\n        int[][] Y = {{5, 8, 1, 2}, {6, 7, 3, 0}, {4, 5, 9, 1}};\n        int[][] result = new int[3][5];\n\n        matrixMultiply(X, Y, result);\n\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 4; j++) {\n                System.out.print(result[i][j] + \" \");\n            }\n            System.out.println();\n        }\n    }\n}",
@@ -501,7 +501,6 @@ function checkAnswer() {
         updateScore();
     }
 }
-// Mock function to get code output (in a real app, you'd use a proper execution environment)
 function getCodeOutput(language, code, isCorrect = false) {
     const mockOutputs = {
         python: {
@@ -509,8 +508,8 @@ function getCodeOutput(language, code, isCorrect = false) {
                 "insertion_sort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
                 "find_max": "9",
                 "is_armstrong": "True",
-                "find_duplicate": "2",
-                "column_sums": "[6, 15, 24]",
+                "find_duplicate": "3",
+                "column_sums": "[13, 14, 18]",
                 "bubble_sort": "[1, 2, 3, 4, 5]",
                 "decimal_to_binary": "101\n1000\n1111",
                 "reverse_number": "54321",
@@ -526,8 +525,8 @@ function getCodeOutput(language, code, isCorrect = false) {
                 "insertionSort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
                 "find_max": "9",
                 "is_armstrong": "1",
-                "find_duplicate": "2",
-                "column_sums": "6 15 24",
+                "find_duplicate": "3",
+                "column_sums": "13 14 18",
                 "bubble_sort": "1 2 3 4 5",
                 "decimal_to_binary": "101\n1000\n1111",
                 "reverse_number": "54321",
@@ -543,8 +542,8 @@ function getCodeOutput(language, code, isCorrect = false) {
                 "insertionSort": "4 8 3 7 1\n3 4 8 7 1\n3 4 7 8 1\n1 3 4 7 8",
                 "findMax": "9",
                 "isArmstrong": "true",
-                "findDuplicate": "2",
-                "columnSums": "[6, 15, 24]",
+                "findDuplicate": "3",
+                "columnSums": "[13, 14, 18]",
                 "bubbleSort": "[1, 2, 3, 4, 5]",
                 "decimalToBinary": "101\n1000\n1111",
                 "reverseNumber": "54321",
@@ -561,8 +560,12 @@ function getCodeOutput(language, code, isCorrect = false) {
     const funcMatch = code.match(/def\s+(\w+)|int\s+(\w+)|boolean\s+(\w+)|void\s+(\w+)/);
     const funcName = funcMatch ? (funcMatch[1] || funcMatch[2] || funcMatch[3] || funcMatch[4]) : "";
     
-    return isCorrect ? mockOutputs[language].correct[funcName] || "Output not available" 
-                    : "Output not available";
+    // Always try to return the expected output, regardless of isCorrect
+    if (mockOutputs[language] && mockOutputs[language].correct && funcName) {
+        return mockOutputs[language].correct[funcName] || "Output not available";
+    }
+    
+    return "Output not available";
 }
 
 function revealCode() {
@@ -657,6 +660,64 @@ function skipQuestion() {
         return;
     }
     loadNextCode();
+}
+
+function showCongratulations(stats) {
+    const container = document.getElementById('congratulations-container');
+    
+    // Generate the congratulations screen HTML
+    container.innerHTML = `
+        <div class="achievement-badge">
+            <i class="fas fa-trophy"></i>
+        </div>
+        
+        <h2>Congratulations!</h2>
+        <h3>You've successfully completed all coding challenges with flying colors</h3>
+        
+        <div class="congratulations-stats">
+            <div class="stat-item">
+                <div class="stat-value">${stats.accuracy}%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">${stats.completed}</div>
+                <div class="stat-label">Challenges</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">${stats.grade}</div>
+                <div class="stat-label">Rating</div>
+            </div>
+        </div>
+        
+        <div class="congratulations-actions">
+            <button class="congratulations-btn btn-primary" id="share-results">
+                <i class="fas fa-share"></i> Share Results
+            </button>
+            <button class="congratulations-btn btn-secondary" id="try-again">
+                <i class="fas fa-redo"></i> Try Again
+            </button>
+        </div>
+    `;
+
+    // Show the container
+    container.style.display = 'block';
+    
+    // Add confetti effects
+    createConfetti();
+    
+    // Add button event listeners
+    document.getElementById('share-results').addEventListener('click', shareResults);
+    document.getElementById('try-again').addEventListener('click', restartChallenge);
+}
+
+function createConfetti() {
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'professional-confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(confetti);
+    }
 }
 
 function createRibbons() {
